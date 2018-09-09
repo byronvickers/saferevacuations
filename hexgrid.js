@@ -1,5 +1,6 @@
 
-const maxX = -35.2734, minX = -35.2848, maxY = 149.1360, minY = 149.1160;
+// const maxX = -35.2734, minX = -35.2848, maxY = 149.1360, minY = 149.1160;
+const maxX = bounding_points[1][0], maxY = bounding_points[1][1], minX = bounding_points[0][0], minY = bounding_points[0][1]
 const randomData = [];
 
 for (i=0; i < 1000; i++) {
@@ -26,7 +27,7 @@ const rules = {
                 "attribute": "",
                 "scale": "size",
                 "range": ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'],
-                "domain": [0,numAgents/5]
+                "domain": [0,Math.min(numAgents/5.0,30)]
             },
             "color": "black",
             "fillOpacity": {
@@ -34,7 +35,7 @@ const rules = {
               "attribute": "",
               "scale": "size",
               "range": [0.0, 0.0174, 0.1570, 0.2346, 0.2792, 0.3277, 0.3800, 0.4363, 0.4963, 0.5603, 0.6, 0.6, 0.6, 0.6, 0.6], // [0, 0.1, 0.2, 0.4, 0.6]
-              "domain": [0,numAgents]
+              "domain": [0,Math.min(numAgents/2.0,30)]
             },
             "weight": 0
         },
@@ -92,7 +93,7 @@ function creategrid() {
   const grid = L.regularGridCluster(
       {
           rules: rules,
-          zoneSize: 10000, // at zoom 15, 10000 is about 312 m
+          zoneSize: 7000*Math.pow(2,15-map.getZoom()), // at zoom 15, 10000 is about 312 m
           zoomHideGrid: 20,
           gridMode: 'hexagon',
           gridOrigin: L.latLng(minX-0.1, minY-0.1),
