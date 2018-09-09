@@ -25,3 +25,7 @@
     cursor: none;
     direction: 'center';
 }
+
+h1, p {
+    font-family: 'Montserrat', sans-serif;
+}

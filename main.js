@@ -10,7 +10,7 @@ routing = require('agentmaps/src/routing')
 
 map_data.features = map_data.features.filter((item) => item.properties.tags.highway && ['trunk', 'primary', 'secondary', 'tertiary', 'unclassified'].indexOf(item.properties.tags.highway) !== -1)
 map = L.map("demo_map").fitBounds(bounding_points);
-map.setZoom(map.getZoom()+1)
+// map.setZoom(map.getZoom()+1)
 L.tileLayer(
     "http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
     // "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",

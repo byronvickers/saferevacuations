@@ -126,7 +126,43 @@ function randomUnitAgentMaker(id){
 window.numAgents = 50
 idxarr = [...Array(numAgents).keys()];
 shuffleArray(idxarr)
-agentmap.agentify(numAgents, randomUnitAgentMaker);
+
+
+function suburbUnitAgentMaker(id){
+	let index = this.agents.count();
+
+  poitype = "suburb"
+  // unitset = this.units.getLayers().filter(unit => unit.feature.properties.poi_type === poitype && unit.feature.properties.description === suburbDescription);
+  unitset = this.units.getLayers().filter(unit => unit.feature.properties.poi_type === poitype);
+  // let unit = this.units.getLayers()[Math.floor(agentmap.units.count() * Math.random())],
+  let unit = unitset[Math.floor(unitset.length * Math.random())],
+	unit_id = this.units.getLayerId(unit),
+	center_point = centroid(unit.feature);
+	center_point.properties.place = {"type": "unit", "id": unit_id},
+	center_point.properties.layer_options = {radius: .5, color: "red", fillColor: "red"};
+
+  return center_point;
+}
+
+function standardUnitAgentMaker(id){
+	let index = this.agents.count();
+
+  poitype = "standard"
+  unitset = this.units.getLayers().filter(unit => unit.feature.properties.poi_type === poitype);
+  // let unit = this.units.getLayers()[Math.floor(agentmap.units.count() * Math.random())],
+  let unit = unitset[Math.floor(unitset.length * Math.random())],
+	unit_id = this.units.getLayerId(unit),
+	center_point = centroid(unit.feature);
+	center_point.properties.place = {"type": "unit", "id": unit_id},
+	center_point.properties.layer_options = {radius: .5, color: "red", fillColor: "red"};
+
+  return center_point;
+}
+
+agentmap.agentify(10, suburbUnitAgentMaker)
+agentmap.agentify(50, standardUnitAgentMaker)
+
+// agentmap.agentify(numAgents, randomUnitAgentMaker);
 // agentmap.agentify(numAgents, agentmap.seqUnitAgentMaker);
 
 window.scatter = false
